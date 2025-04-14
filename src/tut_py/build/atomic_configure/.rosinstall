@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/byron/catkin_ws/src/tut_py/devel/setup.sh

@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/byron/catkin_ws/src/tut_py/devel -DCMAKE_INSTALL_PREFIX=/home/byron/catkin_ws/src/tut_py/install -G Unix Makefiles

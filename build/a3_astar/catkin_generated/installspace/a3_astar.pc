@@ -1,0 +1,8 @@
+prefix=/home/byron/catkin_ws/install
+
+Name: a3_astar
+Description: Description of a3_astar
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

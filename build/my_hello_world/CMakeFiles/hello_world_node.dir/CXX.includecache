@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/byron/catkin_ws/src/my_hello_world/src/hello_world.cpp
+hello_world.h
+/home/byron/catkin_ws/src/my_hello_world/src/hello_world.h
+cstdio
+-
+
+/home/byron/catkin_ws/src/my_hello_world/src/hello_world.h
+rtwtypes.h
+/home/byron/catkin_ws/src/my_hello_world/src/rtwtypes.h
+cstddef
+-
+cstdlib
+-
+
+/home/byron/catkin_ws/src/my_hello_world/src/rtwtypes.h
+tmwtypes.h
+/home/byron/catkin_ws/src/my_hello_world/src/tmwtypes.h
+
+/home/byron/catkin_ws/src/my_hello_world/src/tmwtypes.h
+mwstdint.h
+/home/byron/catkin_ws/src/my_hello_world/src/mwstdint.h
+limits.h
+-
+stdbool.h
+-
+float.h
+-
+stddef.h
+-
+

@@ -1,0 +1,8 @@
+prefix=/home/byron/catkin_ws/install
+
+Name: tutorial_fr
+Description: Description of tutorial_fr
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
