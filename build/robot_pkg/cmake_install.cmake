@@ -1,8 +1,8 @@
-# Install script for directory: /home/byron/catkin_ws/src/robot_pkg
+# Install script for directory: /home/autodrive/GP_test/ADC2Y4/src/robot_pkg
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/byron/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/autodrive/GP_test/ADC2Y4/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/byron/catkin_ws/build/robot_pkg/catkin_generated/installspace/robot_pkg.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/autodrive/GP_test/ADC2Y4/build/robot_pkg/catkin_generated/installspace/robot_pkg.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/robot_pkg/cmake" TYPE FILE FILES
-    "/home/byron/catkin_ws/build/robot_pkg/catkin_generated/installspace/robot_pkgConfig.cmake"
-    "/home/byron/catkin_ws/build/robot_pkg/catkin_generated/installspace/robot_pkgConfig-version.cmake"
+    "/home/autodrive/GP_test/ADC2Y4/build/robot_pkg/catkin_generated/installspace/robot_pkgConfig.cmake"
+    "/home/autodrive/GP_test/ADC2Y4/build/robot_pkg/catkin_generated/installspace/robot_pkgConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/robot_pkg" TYPE FILE FILES "/home/byron/catkin_ws/src/robot_pkg/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/robot_pkg" TYPE FILE FILES "/home/autodrive/GP_test/ADC2Y4/src/robot_pkg/package.xml")
 endif()
 

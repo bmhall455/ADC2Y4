@@ -1,4 +1,4 @@
-prefix=/home/byron/catkin_ws/install
+prefix=/home/autodrive/GP_test/ADC2Y4/install
 
 Name: test
 Description: Description of test

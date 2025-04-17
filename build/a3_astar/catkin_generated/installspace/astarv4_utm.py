@@ -7,8 +7,8 @@ from geopy.distance import geodesic
 from shapely.geometry import LineString, Point
 from sensor_msgs.msg import NavSatFix
 from std_msgs.msg import String
-#!/usr/bin/env python3
-# This script implements an A* path planner for a vehicle using lane-level data.
+from novatel_oem7_msgs.msg import BESTPOS
+
 # ------------------------------------------------------------------
 # LaneNode and A* setup
 # ------------------------------------------------------------------
@@ -104,9 +104,7 @@ def extract_centerline_path(lane_path):
         composite.extend(lane.center)
     return composite
 
-
 def truncate_goal_lane(goal_lane_center, goal_gps, min_fraction, threshold):
-
     n = len(goal_lane_center)
     if n == 0:
         rospy.logwarn("Empty goal lane centerline; using goal GPS only.")
@@ -140,28 +138,23 @@ def truncate_goal_lane(goal_lane_center, goal_gps, min_fraction, threshold):
     # If no candidate found that matches both criteria, use the last point.
     if candidate_idx is None:
         candidate_idx = n - 1
-        rospy.loginfo("No candidate found meeting both min_fraction and threshold; using last index.")
+        rospy.loginfo("No candidate found meeting both criteria; using last index.")
     
     truncated = goal_lane_center[:candidate_idx + 1]
     truncated[-1] = goal_gps  # Force the endpoint to be exactly goal_gps.
     rospy.loginfo(f"Truncated goal lane at index {candidate_idx}.")
     return truncated
 
-# ------------------------------------------------------------------
-# Optionally remove cycles from the composite path.
-# ------------------------------------------------------------------
 def remove_cycles_from_path(path):
     """
     Remove loops in the final list of [lon, lat] coordinates.
     One simple strategy: if a coordinate appears more than once, remove the intermediate loop.
-    (This is a simple approach and may be refined.)
     """
     seen = {}
     new_path = []
     for pt in path:
-        key = tuple(pt)  # use tuple of coordinates as key
+        key = tuple(pt)
         if key in seen:
-            # remove all points after the first occurrence; keep the first one
             idx = seen[key]
             new_path = new_path[:idx+1]
         else:
@@ -175,44 +168,65 @@ def remove_cycles_from_path(path):
 class AStarPlannerNode:
     def __init__(self):
         rospy.init_node('a_star_planner', anonymous=True)
-        rospy.Subscriber('/localization_gps', NavSatFix, self.localization_callback)
+        
+        # Subscribe to BESTPOS and convert it to NavSatFix.
+        rospy.Subscriber('/novatel/oem7/bestpos', BESTPOS, self.bestpos_to_navsatfix)
+        
+        # Subscribe to goal coordinates (assumed to be provided as NavSatFix).
         rospy.Subscriber('/gps_coordinates', NavSatFix, self.hmi_callback)
+        
+        # Subscribe to the converted NavSatFix from BESTPOS.
+        rospy.Subscriber('/gps/fix', NavSatFix, self.localization_callback)
+        
+        # Publisher for the converted NavSatFix messages.
+        self.navsatfix_publisher = rospy.Publisher('/gps/fix', NavSatFix, queue_size=10)
+        
+        # Publishers for the computed paths.
         self.path_publisher = rospy.Publisher('/computed_path', String, queue_size=10)
         self.path_utm_publisher = rospy.Publisher('/path_utm', String, queue_size=10)
-        lanes_file = '/home/byron/catkin_ws/src/a3_astar/data/DYOC_lanev2.json' # change this with the correct path to expected lanes file
+        
+        lanes_file = '/home/autodrive/GP_test/ADC2Y4/src/a3_astar/data/DYOC_lanev2.json'
         self.lanes, self.graph = load_lane_graph(lanes_file)
         self.start_gps = None  # (lon, lat)
         self.goal_gps = None   # (lon, lat)
-    
-    def convert_to_utm(self, gps_path):
+
+    def bestpos_to_navsatfix(self, msg):
         """
-        Converts a list of [lon, lat] GPS points to full UTM coordinates.
-        Returns a list of [x, y, zone_number, zone_letter] for each point.
+        Convert the BESTPOS message to a NavSatFix message and publish it.
         """
-        utm_path = []
-        for lon, lat in gps_path:
-            utm_coords = utm.from_latlon(lat, lon)  # returns (x, y, zone_number, zone_letter)
-            # Append easting, northing, zone number, and zone letter:
-            utm_path.append([utm_coords[0], utm_coords[1], utm_coords[2], utm_coords[3]])
-        return utm_path
+        navsat_msg = NavSatFix()
+        navsat_msg.header.stamp = rospy.Time.now()
+        navsat_msg.header.frame_id = "gps"
+        navsat_msg.latitude = msg.lat
+        navsat_msg.longitude = msg.lon
+        navsat_msg.altitude = msg.hgt  # Use altitude from BESTPOS if available.
+        navsat_msg.position_covariance_type = NavSatFix.COVARIANCE_TYPE_UNKNOWN
+
+        self.navsatfix_publisher.publish(navsat_msg)
+        rospy.loginfo("Converted BESTPOS to NavSatFix and published.")
+
+    def localization_callback(self, msg):
+        """
+        Use the NavSatFix data from the conversion to set the start GPS location.
+        """
+        self.start_gps = (msg.longitude, msg.latitude)
+        rospy.loginfo("Received NavSatFix location for start: {}".format(self.start_gps))
+        self.try_compute_path()
+
+    def hmi_callback(self, msg):
+        """
+        Receive the goal GPS location (assumed to be sent as a NavSatFix message).
+        """
+        self.goal_gps = (msg.longitude, msg.latitude)
+        rospy.loginfo("Received goal location: {}".format(self.goal_gps))
+        self.try_compute_path()
 
     def reset_lane_states(self):
-        # Reset g, h, f, and parent for all lanes before each planning request
         for lane in self.lanes.values():
             lane.g = float('inf')
             lane.h = 0
             lane.f = 0
             lane.parent = None
-
-    def localization_callback(self, msg):
-        self.start_gps = (msg.longitude, msg.latitude)
-        rospy.loginfo("Received current location: {}".format(self.start_gps))
-        self.try_compute_path()
-
-    def hmi_callback(self, msg):
-        self.goal_gps = (msg.longitude, msg.latitude)
-        rospy.loginfo("Received goal location: {}".format(self.goal_gps))
-        self.try_compute_path()
 
     def try_compute_path(self):
         if self.start_gps and self.goal_gps:
@@ -226,36 +240,32 @@ class AStarPlannerNode:
                 return
 
             lane_path = a_star_lane_level(self.graph, self.lanes, start_lane, goal_lane)
-            print(lane_path)
             if lane_path:
                 rospy.loginfo("Lane path computed: %s", [lane.path_id for lane in lane_path])
-                # Build composite centerline from all lanes except the goal lane.
                 composite_centerline = []
                 for lane in lane_path[:-1]:
                     composite_centerline.extend(lane.center)
 
-                # Truncate the goal lane.
-                # For the goal lane, truncate its centerline.
-                # Here, we use min_fraction=0.75 (or you can adjust) and threshold=10.0 (meters)
                 truncated_goal_segment = truncate_goal_lane(goal_lane.center, self.goal_gps, min_fraction=0.1, threshold=5.0)
-                # truncated_goal_segment = truncate_goal_lane(goal_lane.center, self.goal_gps, min_fraction=0.50)
                 final_centerline = composite_centerline + truncated_goal_segment
 
-                # Remove any cycles/loops from the final composite if needed.
                 final_centerline = remove_cycles_from_path(final_centerline)
 
                 rospy.loginfo("Final centerline computed ({} points)".format(len(final_centerline)))
                 self.path_publisher.publish(json.dumps(final_centerline))
                 
-                # Convert the final centerline from GPS to UTM coordinates and publish it.
                 final_centerline_utm = self.convert_to_utm(final_centerline)
                 self.path_utm_publisher.publish(json.dumps(final_centerline_utm))
                 rospy.loginfo("Final UTM path published ({} points)".format(len(final_centerline_utm)))
             else:
                 rospy.logwarn("No lane path found between start and goal.")
 
-
-    
+    def convert_to_utm(self, gps_path):
+        utm_path = []
+        for lon, lat in gps_path:
+            utm_coords = utm.from_latlon(lat, lon)  # Returns (easting, northing, zone_number, zone_letter)
+            utm_path.append([utm_coords[0], utm_coords[1], utm_coords[2], utm_coords[3]])
+        return utm_path
 
 if __name__ == '__main__':
     try:

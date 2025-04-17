@@ -1,4 +1,4 @@
-prefix=/home/byron/catkin_ws/devel
+prefix=/home/autodrive/GP_test/ADC2Y4/devel
 
 Name: test
 Description: Description of test

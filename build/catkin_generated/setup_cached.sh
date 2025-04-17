@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/byron/catkin_ws/build'
+export PWD='/home/autodrive/GP_test/ADC2Y4/build'

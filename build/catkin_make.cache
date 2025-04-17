@@ -1,2 +1,2 @@
 a3_astar:a_star:beginner_tutorials:my_hello_world:robot_pkg:test:tutorial_fr
--DCATKIN_DEVEL_PREFIX=/home/byron/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/byron/catkin_ws/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/autodrive/GP_test/ADC2Y4/devel -DCMAKE_INSTALL_PREFIX=/home/autodrive/GP_test/ADC2Y4/install -G Unix Makefiles

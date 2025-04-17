@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/byron/catkin_ws/devel/lib/my_hello_world/hello_world_node"
-  "/home/byron/catkin_ws/devel/lib/my_hello_world/hello_world_node.pdb"
+  "/home/autodrive/GP_test/ADC2Y4/devel/lib/my_hello_world/hello_world_node"
+  "/home/autodrive/GP_test/ADC2Y4/devel/lib/my_hello_world/hello_world_node.pdb"
   "CMakeFiles/hello_world_node.dir/src/hello_world.cpp.o"
 )
 

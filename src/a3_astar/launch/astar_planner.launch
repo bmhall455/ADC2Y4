@@ -1,6 +1,6 @@
 <launch>
     <!-- Run localization_publisher.py -->
-    <node name="localization_publisher" pkg="a3_astar" type="localization_publisher.py" output="screen" />
+    <!-- node name="localization_publisher" pkg="a3_astar" type="localization_publisher.py" output="screen" / -->
 
     <!-- Run hmiguiv4.py -->
     <node name="hmiguiv4" pkg="a3_astar" type="hmiguiv4.py" output="screen" />

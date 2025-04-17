@@ -55,7 +55,7 @@ class HMIApp(QMainWindow):
 
         # Logo Image
         logo_label = QLabel()
-        pixmap = QPixmap("/home/byron/catkin_ws/src/a3_astar/misc/hmi_logo.webp") ### change with appropriate directory
+        pixmap = QPixmap("/home/autodrive/GP_test/ADC2Y4/src/a3_astar/misc/hmi_logo.webp") ### change with appropriate directory
         logo_label.setPixmap(pixmap.scaled(800, 800, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         logo_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(logo_label)
@@ -145,7 +145,7 @@ class HMIApp(QMainWindow):
 
         self.autonomy_active = False
 
-        self.data = self.load_data("/home/byron/catkin_ws/src/a3_astar/data/just_A_DYOC.xlsx") ### change with appropriate directory
+        self.data = self.load_data("/home/autodrive/GP_test/ADC2Y4/src/a3_astar/data/just_A_DYOC.xlsx") ### change with appropriate directory
 
         self.show()
 

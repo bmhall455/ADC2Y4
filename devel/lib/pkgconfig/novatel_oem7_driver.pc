@@ -1,0 +1,8 @@
+prefix=/home/autodrive/GP_test/ADC2Y4/devel
+
+Name: novatel_oem7_driver
+Description: Description of novatel_oem7_driver
+Version: 4.0.0
+Cflags: -I/home/autodrive/GP_test/ADC2Y4/src/novatel_oem7_driver/src/novatel_oem7_driver/include
+Libs: -L${prefix}/lib -lnovatel_oem7_driver
+Requires: 

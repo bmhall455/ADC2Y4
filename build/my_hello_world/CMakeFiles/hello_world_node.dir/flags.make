@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DROS_BUILD_SHARED_LIBS=1
 
-CXX_INCLUDES = -I/home/byron/catkin_ws/src/my_hello_world/catkin_ws/src 
+CXX_INCLUDES = -I/home/autodrive/GP_test/ADC2Y4/src/my_hello_world/catkin_ws/src 
 

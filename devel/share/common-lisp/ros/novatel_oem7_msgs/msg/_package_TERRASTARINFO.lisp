@@ -1,0 +1,26 @@
+(cl:in-package novatel_oem7_msgs-msg)
+(cl:export '(HEADER-VAL
+          HEADER
+          NOV_HEADER-VAL
+          NOV_HEADER
+          PRODUCT_ACTIVATION_CODE-VAL
+          PRODUCT_ACTIVATION_CODE
+          SUB_TYPE-VAL
+          SUB_TYPE
+          SUB_PERMISSION-VAL
+          SUB_PERMISSION
+          SERVICE_END_DAY_OF_YEAR-VAL
+          SERVICE_END_DAY_OF_YEAR
+          SERVICE_END_YEAR-VAL
+          SERVICE_END_YEAR
+          RESERVED-VAL
+          RESERVED
+          REGION_RESTRICTION-VAL
+          REGION_RESTRICTION
+          CENTER_POINT_LATITUDE-VAL
+          CENTER_POINT_LATITUDE
+          CENTER_POINT_LONGITUDE-VAL
+          CENTER_POINT_LONGITUDE
+          RADIUS-VAL
+          RADIUS
+))

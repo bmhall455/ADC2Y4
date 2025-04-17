@@ -1,8 +1,8 @@
-prefix=/home/byron/catkin_ws/devel
+prefix=/home/autodrive/GP_test/ADC2Y4/devel
 
 Name: a3_astar
 Description: Description of a3_astar
 Version: 0.0.0
 Cflags: 
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: geometry_msgs rospy sensor_msgs std_msgs novatel_oem7_msgs

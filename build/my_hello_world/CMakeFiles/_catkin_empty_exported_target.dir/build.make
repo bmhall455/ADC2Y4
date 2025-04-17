@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/byron/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/autodrive/GP_test/ADC2Y4/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/byron/catkin_ws/build
+CMAKE_BINARY_DIR = /home/autodrive/GP_test/ADC2Y4/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/build: _catkin_empty
 .PHONY : my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/byron/catkin_ws/build/my_hello_world && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/autodrive/GP_test/ADC2Y4/build/my_hello_world && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/byron/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/byron/catkin_ws/src /home/byron/catkin_ws/src/my_hello_world /home/byron/catkin_ws/build /home/byron/catkin_ws/build/my_hello_world /home/byron/catkin_ws/build/my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/autodrive/GP_test/ADC2Y4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/autodrive/GP_test/ADC2Y4/src /home/autodrive/GP_test/ADC2Y4/src/my_hello_world /home/autodrive/GP_test/ADC2Y4/build /home/autodrive/GP_test/ADC2Y4/build/my_hello_world /home/autodrive/GP_test/ADC2Y4/build/my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : my_hello_world/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

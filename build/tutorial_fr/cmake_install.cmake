@@ -1,8 +1,8 @@
-# Install script for directory: /home/byron/catkin_ws/src/tutorial_fr
+# Install script for directory: /home/autodrive/GP_test/ADC2Y4/src/tutorial_fr
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/byron/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/autodrive/GP_test/ADC2Y4/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/byron/catkin_ws/build/tutorial_fr/catkin_generated/installspace/tutorial_fr.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/autodrive/GP_test/ADC2Y4/build/tutorial_fr/catkin_generated/installspace/tutorial_fr.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tutorial_fr/cmake" TYPE FILE FILES
-    "/home/byron/catkin_ws/build/tutorial_fr/catkin_generated/installspace/tutorial_frConfig.cmake"
-    "/home/byron/catkin_ws/build/tutorial_fr/catkin_generated/installspace/tutorial_frConfig-version.cmake"
+    "/home/autodrive/GP_test/ADC2Y4/build/tutorial_fr/catkin_generated/installspace/tutorial_frConfig.cmake"
+    "/home/autodrive/GP_test/ADC2Y4/build/tutorial_fr/catkin_generated/installspace/tutorial_frConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tutorial_fr" TYPE FILE FILES "/home/byron/catkin_ws/src/tutorial_fr/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tutorial_fr" TYPE FILE FILES "/home/autodrive/GP_test/ADC2Y4/src/tutorial_fr/package.xml")
 endif()
 

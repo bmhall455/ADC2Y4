@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
+  novatel_oem7_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,7 +109,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES a3_astar
-#  CATKIN_DEPENDS geometry_msgs rospy sensor_msgs std_msgs
+CATKIN_DEPENDS geometry_msgs rospy sensor_msgs std_msgs novatel_oem7_msgs
 #  DEPENDS system_lib
 )
 

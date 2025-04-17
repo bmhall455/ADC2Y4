@@ -7,6 +7,8 @@ from sensor_msgs.msg import NavSatFix
 from std_msgs.msg import String
 from std_srvs.srv import Trigger, TriggerResponse  # ROS service for triggering map creation
 import shutil
+from novatel_oem7_msgs.msg import BESTPOS
+
 
 # Global variables to store the latest data
 latest_centerline_path = None
@@ -25,10 +27,21 @@ def path_callback(msg):
         rospy.logerr(f"Error parsing path data: {e}")
         
 # Callback for /localization_gps
-def localization_callback(msg):
+# def localization_callback(msg):
+#     global start_gps
+#     start_gps = [msg.latitude, msg.longitude]  # Folium expects [lat, lon]
+#     rospy.loginfo(f"Updated start GPS: {start_gps}")
+
+# def bestpos_callback(self, msg):
+#     self.start_gps = (msg.lon, msg.lat)  # Extract lat and lon from BESTPOS - might have to flip
+#     rospy.loginfo("Received BESTPOS location: Lat {}, Lon {}".format(self.start_gps[1], self.start_gps[0]))
+
+def bestpos_callback(msg):
     global start_gps
-    start_gps = [msg.latitude, msg.longitude]  # Folium expects [lat, lon]
-    rospy.loginfo(f"Updated start GPS: {start_gps}")
+    # Folium expects [lat, lon] order.
+    start_gps = [msg.lat, msg.lon]
+    rospy.loginfo("Received BESTPOS location: Lat {}, Lon {}".format(start_gps[0], start_gps[1]))
+
 
 # Callback for /hmi_goal
 def hmi_callback(msg):
@@ -78,7 +91,7 @@ def generate_map(req):
         rospy.loginfo("Map saved as a_star_path_map.html")
 
         # Optionally move the file if necessary
-        destination_folder = "/home/byron/catkin_ws/src/a3_astar/map_validation"
+        destination_folder = "/home/autodrive/GP_test/ADC2Y4/src/a3_astar/map_validation"
         shutil.move("a_star_path_map.html", f"{destination_folder}/a_star_path_map.html")
         rospy.loginfo(f"Map moved to {destination_folder}/a_star_path_map.html")
 
@@ -103,8 +116,14 @@ def visualize_a_star_path():
     # Subscribe to the /computed_path topic
     rospy.Subscriber('/computed_path', String, path_callback)
     
-    # Subscribe to /localization_gps (current location)
-    rospy.Subscriber('/localization_gps', NavSatFix, localization_callback)
+    # # Subscribe to /localization_gps (current location)
+    # rospy.Subscriber('/localization_gps', NavSatFix, localization_callback)
+
+     # New subscription for BESTPOS
+    #rospy.Subscriber('/novatel/oem7/bestpos', BESTPOS, self.bestpos_callback)  # Use actual BESTPOS message type
+
+    rospy.Subscriber('/novatel/oem7/bestpos', BESTPOS, bestpos_callback)
+
 
     # Subscribe to /gps_coordinates (goal location)
     rospy.Subscriber('/gps_coordinates', NavSatFix, hmi_callback)

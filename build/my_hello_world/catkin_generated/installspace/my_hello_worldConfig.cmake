@@ -67,14 +67,14 @@ set(my_hello_world_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(my_hello_world_SOURCE_PREFIX /home/byron/catkin_ws/src/my_hello_world)
-  set(my_hello_world_DEVEL_PREFIX /home/byron/catkin_ws/devel)
+  set(my_hello_world_SOURCE_PREFIX /home/autodrive/GP_test/ADC2Y4/src/my_hello_world)
+  set(my_hello_world_DEVEL_PREFIX /home/autodrive/GP_test/ADC2Y4/devel)
   set(my_hello_world_INSTALL_PREFIX "")
   set(my_hello_world_PREFIX ${my_hello_world_DEVEL_PREFIX})
 else()
   set(my_hello_world_SOURCE_PREFIX "")
   set(my_hello_world_DEVEL_PREFIX "")
-  set(my_hello_world_INSTALL_PREFIX /home/byron/catkin_ws/install)
+  set(my_hello_world_INSTALL_PREFIX /home/autodrive/GP_test/ADC2Y4/install)
   set(my_hello_world_PREFIX ${my_hello_world_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/byron/catkin_ws/install/lib;/home/byron/catkin_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/autodrive/GP_test/ADC2Y4/install/lib;/home/autodrive/GP_test/ADC2Y4/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

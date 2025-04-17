@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/byron/catkin_ws/src
-# Build directory: /home/byron/catkin_ws/build
+# Source directory: /home/autodrive/GP_test/ADC2Y4/src
+# Build directory: /home/autodrive/GP_test/ADC2Y4/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
